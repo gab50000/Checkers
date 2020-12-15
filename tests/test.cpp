@@ -1,8 +1,9 @@
+#include <checkers/board.cpp>
 #include <iostream>
 
 #include "gtest/gtest.h"
 
 TEST(CheckersTest, TestSomething) {
-  ASSERT_EQ(7, 4 + 3);
-  ASSERT_EQ(8, 4 + 3);
+  auto board = empty_board();
+  ASSERT_EQ(board[0][0], BoardState::empty);
 }
