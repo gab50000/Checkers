@@ -11,6 +11,8 @@ include_directories(.)
 
 add_library(board STATIC checkers/board.hpp checkers/board.cpp)
 add_library(minimax checkers/minimax.cpp checkers/minimax.hpp)
+add_library(game checkers/game.hpp)
+set_target_properties(game PROPERTIES LINKER_LANGUAGE CXX)
 
 add_executable(checkers checkers/main.cpp)
 

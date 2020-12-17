@@ -8,5 +8,6 @@ class Move {};
 
 struct Game {
   Player current_player;
-  std::vector<std::unique_ptr<Move>> get_moves();
+  std::vector<std::shared_ptr<Move>> get_moves();
+  virtual void make_move(Move move) = 0;
 };

@@ -1,10 +1,11 @@
 #pragma once
 #include <checkers/game.hpp>
+#include <memory>
 
 class MiniMax {
  private:
-  Game _game;
+  std::shared_ptr<Game> _game;
 
  public:
-  Move choose_best_move();
+  std::shared_ptr<Move> choose_best_move();
 };
