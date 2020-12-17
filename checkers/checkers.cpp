@@ -1,7 +1,7 @@
 #include <checkers/checkers.hpp>
 #include <iostream>
 
-void Checkers::make_move(Move& move) {
+void CheckersGame::make_move(Move& move) {
   auto& checkers_move = static_cast<CheckersMove&>(move);
   auto [i, j] = checkers_move.from;
   auto [ii, jj] = checkers_move.to;
@@ -11,9 +11,14 @@ void Checkers::make_move(Move& move) {
   _board[i][j] = BoardState::empty;
 };
 
-Checkers::Checkers(CheckersBoard board) : _board(board){};
+CheckersGame::CheckersGame(CheckersBoard board) : _board(board){};
 
-CheckersBoard Checkers::get_board() {
+std::vector<std::shared_ptr<Move>> CheckersGame::get_moves() {
+  std::vector<std::shared_ptr<Move>> vec;
+  return vec;
+};
+
+CheckersBoard CheckersGame::get_board() {
   return _board;
 }
 

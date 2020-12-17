@@ -12,7 +12,7 @@ TEST(CheckersTest, TestMove) {
   std::cout << "Board[0]: " << board[0].size() << std::endl;
   board[0][0] = BoardState::black_king;
 
-  auto checkers = Checkers(board);
+  auto checkers = CheckersGame(board);
   checkers.make_move(move);
   auto new_board = checkers.get_board();
 

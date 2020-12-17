@@ -1,6 +1,7 @@
 #pragma once
 #include <checkers/board.hpp>
 #include <checkers/game.hpp>
+#include <memory>
 #include <utility>
 
 struct CheckersMove : Move {
@@ -12,12 +13,13 @@ struct CheckersMove : Move {
   void make_move(CheckersMove);
 };
 
-class Checkers : Game {
+class CheckersGame : Game {
  private:
   CheckersBoard _board;
 
  public:
-  Checkers(CheckersBoard);
+  CheckersGame(CheckersBoard);
   void make_move(Move&);
   CheckersBoard get_board();
+  std::vector<std::shared_ptr<Move>> get_moves();
 };
