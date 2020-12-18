@@ -11,10 +11,23 @@ void CheckersGame::make_move(Move& move) {
   _board[i][j] = BoardState::empty;
 };
 
-CheckersGame::CheckersGame(CheckersBoard board) : _board(board){};
+CheckersGame::CheckersGame(PlayerColor current_player,
+                           CheckersBoard board,
+                           Direction direction)
+    : _current_player(current_player), _board(board), _direction(direction){};
+
+std::vector<std::pair<int, int>> CheckersGame::get_positions() {
+  std::vector<std::pair<int, int>> positions;
+  for (int i = 0; i < _board.size(); ++i) {
+    for (int j = 0; j < _board[i].size(); ++j) {
+    }
+  }
+  return positions;
+};
 
 std::vector<std::shared_ptr<Move>> CheckersGame::get_moves() {
   std::vector<std::shared_ptr<Move>> vec;
+
   return vec;
 };
 

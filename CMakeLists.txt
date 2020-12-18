@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 include(FetchContent)
+include(GoogleTest)
 
 project(Checkers)
 
@@ -22,6 +23,8 @@ FetchContent_Populate(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG        release-1.8.0
 )
+enable_testing()
+
 add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 add_executable(example_test tests/test.cpp)
 add_executable(test_checkers tests/test_checkers.cpp)
