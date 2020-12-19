@@ -1,9 +1,24 @@
 #pragma once
 
+#include <memory>
+#include <optional>
 #include <vector>
 
-enum class BoardState { black_man, white_man, black_king, white_king, empty };
+enum class PlayerColor { white, black };
 
-using CheckersBoard = std::vector<std::vector<BoardState>>;
+enum class TokenType { Man, King };
+
+struct Token {
+  PlayerColor color;
+  TokenType token_type;
+
+  Token(PlayerColor, TokenType);
+
+  bool operator==(const Token&);
+};
+
+using BoardState = Token;
+
+using CheckersBoard = std::vector<std::vector<std::unique_ptr<BoardState>>>;
 
 CheckersBoard empty_board();
