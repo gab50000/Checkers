@@ -1,6 +1,8 @@
 #include <checkers/checkers.hpp>
 #include <iostream>
 
+const int BOARD_SIZE = 8;
+
 CheckersMove::CheckersMove(std::pair<int, int> from, std::pair<int, int> to)
     : from(from), to(to){};
 
@@ -45,13 +47,16 @@ std::vector<std::shared_ptr<Move>> CheckersGame::get_moves() {
     const auto [i, j] = from;
     std::cout << "Got from-position " << i << ", " << j << std::endl;
     for (auto delta_j : {-1, 1}) {
-      auto ii = i + delta_i;
-      auto jj = j + delta_j;
+      int i_enemy = i + delta_i;
+      int j_enemy = j + delta_j;
+      int i_final = i + 2 * delta_i;
+      int j_final = j + 2 * delta_j;
 
-      if (_board[ii][jj].has_value() &&
-          _board[ii][jj].value().color != _current_player) {
-        std::cout << "Got to-position " << ii << ", " << jj << std::endl;
-        auto to = std::make_pair(i + 2 * delta_i, j + 2 * delta_j);
+      if (_board[i_enemy][j_enemy].has_value() &&
+          _board[i_enemy][j_enemy].value().color != _current_player &&
+          0 <= i_final && i_final < BOARD_SIZE && 0 < j_final &&
+          j_final < BOARD_SIZE) {
+        auto to = std::make_pair(i_final, j_final);
         moves.push_back(std::make_shared<CheckersMove>(from, to));
       }
     }
