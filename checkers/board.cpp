@@ -3,17 +3,9 @@
 #include <optional>
 
 CheckersBoard empty_board() {
-  CheckersBoard vec;
-
-  for (int i = 0; i < 8; ++i) {
-    std::vector<std::unique_ptr<BoardState>> row;
-    for (int j = 0; j < 8; ++j) {
-      row.push_back(std::move(
-          std::make_unique<BoardState>(PlayerColor::black, TokenType::King)));
-    }
-    vec.push_back(std::move(row));
-  }
-  return vec;
+  auto board =
+      std::vector(8, std::vector(8, static_cast<BoardState>(std::nullopt)));
+  return board;
 }
 
 Token::Token(PlayerColor color, TokenType token_type)

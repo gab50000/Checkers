@@ -17,8 +17,8 @@ struct Token {
   bool operator==(const Token&);
 };
 
-using BoardState = Token;
+using BoardState = std::optional<Token>;
 
-using CheckersBoard = std::vector<std::vector<std::unique_ptr<BoardState>>>;
+using CheckersBoard = std::vector<std::vector<BoardState>>;
 
 CheckersBoard empty_board();
