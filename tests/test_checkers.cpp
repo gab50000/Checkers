@@ -63,3 +63,18 @@ TEST(CheckersTest, TestGetMoves) {
   EXPECT_EQ(from, from_target);
   EXPECT_EQ(to, to_target);
 }
+
+TEST(CheckersTest, TestGetMovesAtBorder) {
+  auto board = empty_board();
+  board[0][0] = std::make_optional<Token>(PlayerColor::black, TokenType::Man);
+  board[1][1] = std::make_optional<Token>(PlayerColor::white, TokenType::Man);
+  auto checkers = CheckersGame(PlayerColor::white, board, Direction::Up);
+
+  auto moves = checkers.get_moves();
+
+  // std::cout << static_cast<CheckersMove*>(moves[0].get())->to.first
+  //           << static_cast<CheckersMove*>(moves[0].get())->to.second
+  //           << std::endl;
+
+  EXPECT_EQ(moves.size(), 0);
+}
