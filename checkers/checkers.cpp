@@ -37,9 +37,27 @@ std::vector<std::pair<int, int>> CheckersGame::get_positions() {
 };
 
 std::vector<std::shared_ptr<Move>> CheckersGame::get_moves() {
-  std::vector<std::shared_ptr<Move>> vec;
+  std::vector<std::shared_ptr<Move>> moves;
+  auto positions = get_positions();
+  auto delta_i = _direction == Direction::Up ? -1 : 1;
 
-  return vec;
+  for (const auto& from : positions) {
+    const auto [i, j] = from;
+    std::cout << "Got from-position " << i << ", " << j << std::endl;
+    for (auto delta_j : {-1, 1}) {
+      auto ii = i + delta_i;
+      auto jj = j + delta_j;
+
+      if (_board[ii][jj].has_value() &&
+          _board[ii][jj].value().color != _current_player) {
+        std::cout << "Got to-position " << ii << ", " << jj << std::endl;
+        auto to = std::make_pair(i + 2 * delta_i, j + 2 * delta_j);
+        moves.push_back(std::make_shared<CheckersMove>(from, to));
+      }
+    }
+  }
+
+  return moves;
 };
 
 CheckersBoard CheckersGame::get_board() {

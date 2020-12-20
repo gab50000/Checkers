@@ -40,16 +40,18 @@ TEST(CheckersTest, TestGetMoves) {
   board[3][3] = std::make_optional<Token>(PlayerColor::black, TokenType::Man);
   board[2][2] = std::make_optional<Token>(PlayerColor::white, TokenType::Man);
 
-  auto checkers = CheckersGame(PlayerColor::white, board, Direction::Up);
+  auto checkers = CheckersGame(PlayerColor::white, board, Direction::Down);
 
   auto moves = checkers.get_moves();
 
   EXPECT_EQ(moves.size(), 1);
 
-  auto mv = moves[0];
-  auto from = static_cast<CheckersMove*>(mv.get())->from;
+  auto mv = static_cast<CheckersMove*>(moves[0].get());
+  auto from = mv->from;
+  auto to = mv->to;
   auto from_target = std::make_pair(2, 2);
-  auto to_target = std::make_pair(2, 2);
+  auto to_target = std::make_pair(4, 4);
 
   EXPECT_EQ(from, from_target);
+  EXPECT_EQ(to, to_target);
 }
