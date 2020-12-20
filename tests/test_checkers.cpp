@@ -12,8 +12,8 @@ TEST(CheckersTest, TestMove) {
   board[0][0] = std::make_optional<Token>(PlayerColor::black, TokenType::King);
 
   auto checkers = CheckersGame(PlayerColor::white, board, Direction::Up);
-  checkers.make_move(move);
-  auto new_board = checkers.get_board();
+  auto new_checkers = checkers.make_move(move);
+  auto new_board = new_checkers.get_board();
 
   auto target = Token{PlayerColor::black, TokenType::King};
   auto val = new_board[1][1].value();

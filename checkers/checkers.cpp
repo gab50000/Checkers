@@ -10,14 +10,21 @@ bool CheckersMove::operator=(const CheckersMove& other) {
   return (from == other.from) && (to == other.to);
 }
 
-void CheckersGame::make_move(Move& move) {
-  auto& checkers_move = static_cast<CheckersMove&>(move);
+CheckersGame CheckersGame::make_move(CheckersMove& checkers_move) {
   auto [i, j] = checkers_move.from;
   auto [ii, jj] = checkers_move.to;
+  auto new_board = _board;
 
-  auto elem = _board.at(i).at(j);
-  _board.at(ii).at(jj) = elem;
-  _board[i][j] = std::nullopt;
+  auto elem = _board[i][j];
+  new_board[ii][jj] = elem;
+  new_board[i][j] = std::nullopt;
+  auto new_color = _current_player == PlayerColor::black ? PlayerColor::white
+                                                         : PlayerColor::black;
+  auto new_direction =
+      _direction == Direction::Up ? Direction::Down : Direction::Up;
+
+  auto new_game = CheckersGame(new_color, new_board, new_direction);
+  return new_game;
 }
 
 CheckersGame::CheckersGame(PlayerColor current_player,
@@ -38,8 +45,8 @@ std::vector<std::pair<int, int>> CheckersGame::get_positions() {
   return positions;
 };
 
-std::vector<std::shared_ptr<Move>> CheckersGame::get_moves() {
-  std::vector<std::shared_ptr<Move>> moves;
+std::vector<std::shared_ptr<CheckersMove>> CheckersGame::get_moves() {
+  std::vector<std::shared_ptr<CheckersMove>> moves;
   auto positions = get_positions();
   auto delta_i = _direction == Direction::Up ? -1 : 1;
 
@@ -64,6 +71,14 @@ std::vector<std::shared_ptr<Move>> CheckersGame::get_moves() {
 
   return moves;
 };
+
+std::vector<int> CheckersGame::evaluate_moves(
+    const std::vector<std::shared_ptr<CheckersMove>>& moves) {
+  for (auto& mv : moves) {
+    auto checkers_move = static_cast<CheckersMove*>(mv.get());
+    make_move(*checkers_move);
+  }
+}
 
 CheckersBoard CheckersGame::get_board() {
   return _board;

@@ -1,12 +1,11 @@
 #pragma once
 #include <checkers/board.hpp>
-#include <checkers/game.hpp>
 #include <memory>
 #include <utility>
 
 enum class Direction { Up, Down };
 
-struct CheckersMove : Move {
+struct CheckersMove {
   std::pair<int, int> from;
   std::pair<int, int> to;
 
@@ -15,7 +14,7 @@ struct CheckersMove : Move {
   bool operator=(const CheckersMove&);
 };
 
-class CheckersGame : Game {
+class CheckersGame {
  private:
   PlayerColor _current_player;
   CheckersBoard _board;
@@ -23,8 +22,10 @@ class CheckersGame : Game {
 
  public:
   CheckersGame(PlayerColor, CheckersBoard, Direction);
-  void make_move(Move&);
+  CheckersGame make_move(CheckersMove&);
   CheckersBoard get_board();
-  std::vector<std::shared_ptr<Move>> get_moves();
+  std::vector<std::shared_ptr<CheckersMove>> get_moves();
   std::vector<std::pair<int, int>> get_positions();
+  std::vector<int> evaluate_moves(
+      const std::vector<std::shared_ptr<CheckersMove>>&);
 };
