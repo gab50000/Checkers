@@ -22,10 +22,9 @@ class CheckersGame {
 
  public:
   CheckersGame(PlayerColor, CheckersBoard, Direction);
-  CheckersGame make_move(CheckersMove&);
+  CheckersGame make_move(const CheckersMove&);
   CheckersBoard get_board();
-  std::vector<std::shared_ptr<CheckersMove>> get_moves();
+  std::vector<CheckersMove> get_moves();
   std::vector<std::pair<int, int>> get_positions();
-  std::vector<int> evaluate_moves(
-      const std::vector<std::shared_ptr<CheckersMove>>&);
+  std::vector<int> evaluate_moves(const std::vector<CheckersMove>&);
 };

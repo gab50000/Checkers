@@ -4,8 +4,8 @@
 
 class MiniMax {
  private:
-  std::shared_ptr<CheckersGame> _game;
+  CheckersGame _game;
 
  public:
-  std::shared_ptr<CheckersMove> choose_best_move();
+  CheckersMove choose_best_move();
 };

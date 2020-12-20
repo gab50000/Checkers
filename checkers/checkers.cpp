@@ -10,7 +10,7 @@ bool CheckersMove::operator=(const CheckersMove& other) {
   return (from == other.from) && (to == other.to);
 }
 
-CheckersGame CheckersGame::make_move(CheckersMove& checkers_move) {
+CheckersGame CheckersGame::make_move(const CheckersMove& checkers_move) {
   auto [i, j] = checkers_move.from;
   auto [ii, jj] = checkers_move.to;
   auto new_board = _board;
@@ -45,8 +45,8 @@ std::vector<std::pair<int, int>> CheckersGame::get_positions() {
   return positions;
 };
 
-std::vector<std::shared_ptr<CheckersMove>> CheckersGame::get_moves() {
-  std::vector<std::shared_ptr<CheckersMove>> moves;
+std::vector<CheckersMove> CheckersGame::get_moves() {
+  std::vector<CheckersMove> moves;
   auto positions = get_positions();
   auto delta_i = _direction == Direction::Up ? -1 : 1;
 
@@ -64,7 +64,7 @@ std::vector<std::shared_ptr<CheckersMove>> CheckersGame::get_moves() {
           0 <= i_final && i_final < BOARD_SIZE && 0 < j_final &&
           j_final < BOARD_SIZE) {
         auto to = std::make_pair(i_final, j_final);
-        moves.push_back(std::make_shared<CheckersMove>(from, to));
+        moves.push_back(CheckersMove(from, to));
       }
     }
   }
@@ -73,10 +73,9 @@ std::vector<std::shared_ptr<CheckersMove>> CheckersGame::get_moves() {
 };
 
 std::vector<int> CheckersGame::evaluate_moves(
-    const std::vector<std::shared_ptr<CheckersMove>>& moves) {
-  for (auto& mv : moves) {
-    auto checkers_move = static_cast<CheckersMove*>(mv.get());
-    make_move(*checkers_move);
+    const std::vector<CheckersMove>& moves) {
+  for (const auto& mv : moves) {
+    make_move(mv);
   }
 }
 
