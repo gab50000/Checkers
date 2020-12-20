@@ -6,15 +6,13 @@
 
 enum class Direction { Up, Down };
 
-enum class PlayerColor { white, black };
-
 struct CheckersMove : Move {
   std::pair<int, int> from;
   std::pair<int, int> to;
 
   CheckersMove(std::pair<int, int>, std::pair<int, int>);
 
-  void make_move(CheckersMove);
+  bool operator=(const CheckersMove&);
 };
 
 class CheckersGame : Game {
