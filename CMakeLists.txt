@@ -7,14 +7,13 @@ project(Checkers)
 message(Hello)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 
 include_directories(.)
 
 add_library(board checkers/board.hpp checkers/board.cpp)
 add_library(minimax checkers/minimax.cpp checkers/minimax.hpp)
-add_library(game checkers/game.hpp)
 add_library(checkers checkers/checkers.cpp checkers/checkers.hpp)
-set_target_properties(game PROPERTIES LINKER_LANGUAGE CXX)
 
 add_executable(checkers.exe checkers/main.cpp)
 
