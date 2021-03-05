@@ -3,10 +3,11 @@
 
 const int BOARD_SIZE = 8;
 
-CheckersMove::CheckersMove(std::pair<int, int> from, std::pair<int, int> to)
+CheckersMove::CheckersMove(const std::pair<int, int>& from,
+                           const std::pair<int, int>& to)
     : from(from), to(to){};
 
-bool CheckersMove::operator=(const CheckersMove& other) {
+bool CheckersMove::operator==(const CheckersMove& other) {
   return (from == other.from) && (to == other.to);
 }
 
@@ -27,10 +28,24 @@ CheckersGame CheckersGame::make_move(const CheckersMove& checkers_move) {
   return new_game;
 }
 
-CheckersGame::CheckersGame(PlayerColor current_player,
-                           CheckersBoard board,
-                           Direction direction)
+CheckersGame::CheckersGame(const PlayerColor& current_player,
+                           const CheckersBoard& board,
+                           const Direction& direction)
     : _current_player(current_player), _board(board), _direction(direction){};
+
+std::ostream& operator<<(std::ostream& os, const CheckersGame& game) {
+  for (const auto& row : game._board) {
+    for (const auto val : row) {
+      if (val.has_value()) {
+        os << val.value();
+      } else {
+        os << " ";
+      }
+    }
+    os << "\n";
+  }
+  return os;
+}
 
 std::vector<std::pair<int, int>> CheckersGame::get_positions() {
   std::vector<std::pair<int, int>> positions;
@@ -68,7 +83,6 @@ std::vector<CheckersMove> CheckersGame::get_moves() {
       }
     }
   }
-
   return moves;
 };
 
@@ -77,6 +91,7 @@ std::vector<int> CheckersGame::evaluate_moves(
   for (const auto& mv : moves) {
     make_move(mv);
   }
+  return {};
 }
 
 CheckersBoard CheckersGame::get_board() {

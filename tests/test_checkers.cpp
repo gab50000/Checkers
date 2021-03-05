@@ -38,8 +38,8 @@ TEST(CheckersTest, TestGetPositions) {
 
 TEST(CheckersTest, TestGetMoves) {
   auto board = empty_board();
-  board[3][3] = std::make_optional<Token>(PlayerColor::black, TokenType::Man);
-  board[2][2] = std::make_optional<Token>(PlayerColor::white, TokenType::Man);
+  board[3][3].emplace(Token{PlayerColor::black, TokenType::Man});
+  board[2][2].emplace(Token{PlayerColor::white, TokenType::Man});
 
   auto checkers = CheckersGame(PlayerColor::white, board, Direction::Down);
   auto moves = checkers.get_moves();
@@ -66,8 +66,8 @@ TEST(CheckersTest, TestGetMoves) {
 
 TEST(CheckersTest, TestGetMovesAtBorder) {
   auto board = empty_board();
-  board[0][0] = std::make_optional<Token>(PlayerColor::black, TokenType::Man);
-  board[1][1] = std::make_optional<Token>(PlayerColor::white, TokenType::Man);
+  board[0][0].emplace(Token{PlayerColor::black, TokenType::Man});
+  board[1][1].emplace(Token{PlayerColor::white, TokenType::Man});
   auto checkers = CheckersGame(PlayerColor::white, board, Direction::Up);
 
   auto moves = checkers.get_moves();

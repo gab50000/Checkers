@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <optional>
+#include <ostream>
 #include <vector>
 
 enum class PlayerColor { white, black };
@@ -16,6 +17,8 @@ struct Token {
 
   bool operator==(const Token&);
 };
+
+std::ostream& operator<<(std::ostream&, const Token&);
 
 using BoardState = std::optional<Token>;
 
